@@ -63,7 +63,7 @@ func (g GcAwareTimer) CSVHeader() string {
 
 func (g GcAwareTimer) CSVString() string {
 	// elapsed, gc time, run time, gc count, then the same for each section
-	ret := fmt.Sprintf("%v,%v,%v,%v", g.Elapsed*time.Nanosecond, g.GcTime*time.Nanosecond, g.RunTime*time.Nanosecond, g.GcCount)
+	ret := fmt.Sprintf("%v,%v,%v,%v", g.Elapsed.Nanoseconds(), g.GcTime.Nanoseconds(), g.RunTime.Nanoseconds(), g.GcCount)
 	for _, s := range g.Sections {
 		ret = fmt.Sprintf("%s,%s", ret, s.CSVString())
 	}
@@ -71,5 +71,5 @@ func (g GcAwareTimer) CSVString() string {
 }
 
 func (s Section) CSVString() string {
-	return fmt.Sprintf("%v,%v,%v,%v", s.Elapsed*time.Nanosecond, s.GcTime*time.Nanosecond, s.RunTime*time.Nanosecond, s.GcCount)
+	return fmt.Sprintf("%v,%v,%v,%v", s.Elapsed.Nanoseconds(), s.GcTime.Nanoseconds(), s.RunTime.Nanoseconds(), s.GcCount)
 }
