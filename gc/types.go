@@ -17,9 +17,9 @@ type GcAwareTimer struct {
 	Elapsed  time.Duration
 	Sections []Section
 
-	gcMarks []gcmark
-	marks   []mark
-	prev    time.Time
+	// Internal time tracking of sections
+	marks []mark
+	prev  time.Time
 }
 
 type Section struct {
@@ -37,18 +37,11 @@ func (g GcAwareTimer) String() string {
 }
 
 func (s Section) String() string {
-	return fmt.Sprintf("[Section Name: %v; Start: %v; End: %v; Elapsed %v; GCTime:  %v; RunTime: %v; GcCount: %v]", s.Name, s.Start, s.End, s.Elapsed, s.GcTime, s.RunTime, s.GcCount)
+	return fmt.Sprintf("[Section Name: %v; Start: %v; End: %v; Elapsed %v; GCTime:  %v; RunTime: %v; GcCount: %v]", s.Name, s.Start.Unix(), s.End.Unix(), s.Elapsed, s.GcTime, s.RunTime, s.GcCount)
 }
 
 type mark struct {
 	name  string
 	start time.Time
 	end   time.Time
-}
-
-type gcmark struct {
-	duration time.Duration
-	gcCount  int
-	gcTime   time.Duration
-	runTime  time.Duration
 }
