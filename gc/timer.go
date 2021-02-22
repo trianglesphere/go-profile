@@ -29,6 +29,10 @@ func (g *GcAwareTimer) End(label string) {
 	// Pull out info from gc stats
 	gcs := debug.GCStats{}
 	debug.ReadGCStats(&gcs)
+	g.calculateGCTimes(gcs)
+}
+
+func (g *GcAwareTimer) calculateGCTimes(gcs debug.GCStats) {
 	ends := gcs.PauseEnd
 	j := 0
 	for i := len(g.marks) - 1; i >= 0; i-- {
