@@ -38,6 +38,9 @@ func (g *GcAwareTimer) calculateGCTimes(gcs debug.GCStats) {
 	for i := len(g.marks) - 1; i >= 0; i-- {
 		m := g.marks[i]
 		section := Section{Name: m.name, Start: m.start, End: m.end}
+		for ; j < len(ends) && ends[j].After(m.end); j++ {
+			// pass
+		}
 		for ; j < len(ends) && ends[j].After(m.start) && ends[j].Before(m.end); j++ {
 			section.GcCount++
 			section.GcTime = section.GcTime + gcs.Pause[j]
