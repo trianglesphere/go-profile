@@ -8,7 +8,7 @@ import (
 )
 
 func main() {
-	timer := gc.NewGcAwareTimer("main")
+	timer := gc.NewSectionTimer("main")
 	doAllocates()
 	timer.Mark("middle")
 	doAllocates()

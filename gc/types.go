@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-type GcAwareTimer struct {
+type GCAwareSectionTimer struct {
 	Name  string
 	start time.Time
 	end   time.Time
@@ -22,6 +22,18 @@ type GcAwareTimer struct {
 	prev  time.Time
 }
 
+type GCAwareTimer struct {
+	Name  string
+	start time.Time
+	end   time.Time
+
+	// GC Info not filled in until End called
+	GcCount int
+	GcTime  time.Duration
+	RunTime time.Duration
+	Elapsed time.Duration
+}
+
 type Section struct {
 	Name    string
 	Start   time.Time
@@ -32,7 +44,11 @@ type Section struct {
 	Elapsed time.Duration
 }
 
-func (g GcAwareTimer) String() string {
+func (g GCAwareTimer) String() string {
+	return fmt.Sprintf("[Profile Name: %v; Elapsed %v; GCTime:  %v; RunTime: %v; GcCount: %v;]", g.Name, g.Elapsed, g.GcTime, g.RunTime, g.GcCount)
+}
+
+func (g GCAwareSectionTimer) String() string {
 	return fmt.Sprintf("[Profile Name: %v; Elapsed %v; GCTime:  %v; RunTime: %v; GcCount: %v; Sections: %v;]", g.Name, g.Elapsed, g.GcTime, g.RunTime, g.GcCount, g.Sections)
 }
 
