@@ -69,8 +69,8 @@ func (g GCAwareSectionTimer) CSVHeader() string {
 }
 
 func (g GCAwareSectionTimer) CSVString() string {
-	// elapsed, name, gc time, run time, gc count, then the same for each section
-	ret := fmt.Sprintf("%v,%v,%v,%v,%v", g.Elapsed.Nanoseconds(), g.Name, g.GcTime.Nanoseconds(), g.RunTime.Nanoseconds(), g.GcCount)
+	// duration, elapsed, name, gc time, run time, gc count, then the same for each section
+	ret := fmt.Sprintf("%v,%v,%v,%v,%v,%v", g.Elapsed, g.Elapsed.Nanoseconds(), g.Name, g.GcTime.Nanoseconds(), g.RunTime.Nanoseconds(), g.GcCount)
 	for _, s := range g.Sections {
 		ret = fmt.Sprintf("%s,%s", ret, s.CSVString())
 	}

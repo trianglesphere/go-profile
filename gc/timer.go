@@ -35,11 +35,11 @@ func (g *GCAwareTimer) End() {
 }
 
 func (g GCAwareTimer) CSVHeader() string {
-	return "elapsed,name,gc_time,run_time,gc_count"
+	return "duration,elapsed,name,gc_time,run_time,gc_count"
 }
 
 func (g GCAwareTimer) CSVString() string {
-	// elapsed, gc time, run time, gc count
-	ret := fmt.Sprintf("%v,%v,%v,%v,%v", g.Elapsed.Nanoseconds(), g.Name, g.GcTime.Nanoseconds(), g.RunTime.Nanoseconds(), g.GcCount)
+	// duration, elapsed, name, gc time, run time, gc count
+	ret := fmt.Sprintf("%v,%v,%v,%v,%v,%v", g.Elapsed, g.Elapsed.Nanoseconds(), g.Name, g.GcTime.Nanoseconds(), g.RunTime.Nanoseconds(), g.GcCount)
 	return ret
 }
