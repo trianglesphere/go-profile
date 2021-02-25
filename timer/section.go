@@ -24,7 +24,7 @@ func (t *SectionTimer) Mark(label string) {
 func (t *SectionTimer) End(label string) {
 	t.Mark(label)
 	t.end = time.Now()
-	t.Elapsed = t.start.Sub(t.end)
+	t.Elapsed = t.end.Sub(t.start)
 }
 
 func (g SectionTimer) CSVHeader() string {
